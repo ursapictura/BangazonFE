@@ -3,7 +3,6 @@ import 'firebase/auth';
 import { clientCredentials } from './client';
 
 const checkUser = (uid) => new Promise((resolve, reject) => {
-  console.log(`${clientCredentials.databaseURL}/checkuser/${uid}`);
   fetch(`${clientCredentials.databaseURL}/checkuser/${uid}`, {
     method: 'GET',
     headers: {
@@ -11,7 +10,7 @@ const checkUser = (uid) => new Promise((resolve, reject) => {
       Accept: 'application/json',
     },
   })
-    .then((resp) => resolve(resp.json()))
+    .then((response) => resolve(response.json()))
     .catch(reject);
 });
 
@@ -24,7 +23,33 @@ const registerUser = (userInfo) => new Promise((resolve, reject) => {
       Accept: 'application/json',
     },
   })
-    .then((resp) => resolve(resp.json()))
+    .then((response) => resolve(response.json()))
+    .catch(reject);
+});
+
+const updateUser = (payload) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/register`, {
+    method: 'PUT',
+    body: JSON.stringify(payload),
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    },
+  })
+    .then((response) => resolve(response.json()))
+    .then((data) => resolve(data))
+    .catch(reject);
+});
+
+const deleteUser = (userId) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/users/${userId}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => response.json())
+    .then(resolve)
     .catch(reject);
 });
 
@@ -42,4 +67,6 @@ export {
   signOut,
   checkUser,
   registerUser,
+  updateUser,
+  deleteUser,
 };
