@@ -38,6 +38,19 @@ const getSingleProduct = (id) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
+// Create Seller Storefront
+const getSellerProducts = (sellerId) => new Promise((resolve, reject) => {
+  fetch(`${endpoint}/products/users/${sellerId}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => resolve(data))
+    .catch(reject);
+});
+
 const addToCart = (payload) => new Promise((resolve, reject) => {
   fetch(`${endpoint}/orders/addProduct`, {
     method: 'POST',
@@ -67,6 +80,7 @@ export {
   getAllProducts,
   getNew20,
   getSingleProduct,
+  getSellerProducts,
   addToCart,
   removeFromCart,
 };
