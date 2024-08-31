@@ -25,10 +25,10 @@ export default function ProductCard({ productObj }) {
         <Card.Title className="card-title">{productObj.name}</Card.Title>
         <Card.Text className="card-text">{productObj.description}</Card.Text>
         <Card.Text className="card-text">{productObj.price}</Card.Text>
-        <Card.Text className="card-text">Category: {productObj.category}</Card.Text>
+        <Card.Text className="card-text">Category: {productObj.category.name}</Card.Text>
         <Card.Text className="card-text">Seller: {productObj.seller.username}</Card.Text>
-        <Card.Footer className="card-footer"><Button><Link href={`/products/${productObj.id}`}>View Details</Link></Button></Card.Footer>
-        <Card.Footer className="card-footer"><Button onClick={addThisProductToCart}>Add to Cart</Button></Card.Footer>
+        <Button><Link href={`/products/${productObj.id}`}>View Details</Link></Button>
+        <Button onClick={addThisProductToCart}>Add to Cart</Button>
       </Card.Body>
     </Card>
   );
@@ -43,7 +43,7 @@ ProductCard.propTypes = {
     id: PropTypes.number,
     category: PropTypes.shape({
       id: PropTypes.number,
-      title: PropTypes.string,
+      name: PropTypes.string,
     }),
     seller: PropTypes.shape({
       username: PropTypes.string,

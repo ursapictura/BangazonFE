@@ -3,7 +3,7 @@ import { clientCredentials } from '../utils/client';
 const endpoint = clientCredentials.databaseURL;
 
 const getAllProducts = () => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/products`, {
+  fetch(`${endpoint}/api/products`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -15,19 +15,25 @@ const getAllProducts = () => new Promise((resolve, reject) => {
 });
 
 const getNew20 = () => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/products/newest`, {
+  fetch(`${endpoint}/api/products/newest`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
     },
   })
     .then((response) => response.json())
-    .then((data) => resolve(Object.values(data)))
+    .then((data) => {
+      if (data) {
+        resolve(Object.values(data));
+      } else {
+        resolve([]);
+      }
+    })
     .catch(reject);
 });
 
 const getSingleProduct = (id) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/products/${id}`, {
+  fetch(`${endpoint}/api/products/${id}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
