@@ -13,6 +13,7 @@ export default function ViewProductDetails() {
 
   useEffect(() => {
     getSingleProduct(id).then(setProductDetails);
+    console.warn(productDetails);
   }, [id]);
 
   const addThisProductToCart = () => {
@@ -26,16 +27,15 @@ export default function ViewProductDetails() {
   };
 
   return (
-    <div className="mt-5 d-flex flex-wrap">
-      {console.warn(productDetails)}
+    <div className="mt-5 d-flex flex-wrap details">
       <div className="d-flex flex-column">
         <img src={productDetails?.image} alt={productDetails?.name} style={{ width: '300px' }} />
       </div>
-      <div className="text-white ms-5 details">
+      <div className="text-white ms-5">
         <h5>
           {productDetails?.name}
         </h5>
-        Seller: <a href={`products/${productDetails?.seller?.username}`}>{productDetails?.seller?.username}</a>
+        Seller: <a href={`/seller/${productDetails?.seller?.id}`}>{productDetails?.seller?.username}</a>
         <p>{productDetails?.description || ''}</p>
         <hr />
         <p>

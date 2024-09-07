@@ -1,22 +1,44 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Card } from 'react-bootstrap';
 import Link from 'next/link';
 import { useAuth } from '../utils/context/authContext';
 import { addToCart } from '../data/productData';
+import { getCart } from '../data/orderData';
 
 export default function ProductCard({ productObj }) {
   const { user } = useAuth();
+  const [cart, setCart] = useState({});
+
+  const getCartDetails = async () => {
+    if (user) { // Check if user and user[0].id are available
+      try {
+        const cartData = await getCart(user[0].id);
+        setCart(cartData);
+        console.warn(cart);
+      } catch (error) {
+        console.error('Error fetching cart details:', error);
+      }
+    }
+  };
 
   const addThisProductToCart = () => {
-    window.alert('Product added to cart!');
-    const payload = {
-      productId: productObj.id,
-      userId: user.id,
-    };
-    console.warn(payload);
-    addToCart(payload);
+    if (cart[0]?.id) {
+      const payload = {
+        productId: productObj.id,
+        orderId: cart[0].id,
+      };
+      window.alert('Product added to cart!');
+      console.warn(payload);
+      addToCart(payload);
+    } else {
+      window.alert('Unable to add product to cart. Please try again later.');
+    }
   };
+
+  useEffect(() => {
+    getCartDetails();
+  }, [user]);
 
   return (
     <Card style={{ width: '18rem', margin: '10px' }}>
@@ -26,7 +48,7 @@ export default function ProductCard({ productObj }) {
         <Card.Text className="card-text">{productObj.description}</Card.Text>
         <Card.Text className="card-text">{productObj.price}</Card.Text>
         <Card.Text className="card-text">Category: {productObj.category.name}</Card.Text>
-        <Card.Text className="card-text">Seller: {productObj.seller.username}</Card.Text>
+        <Card.Text className="card-text"><a href={`/seller/${productObj.seller.id}`}>Seller: {productObj.seller.username}</a></Card.Text>
         <Button><Link href={`/products/${productObj.id}`}>View Details</Link></Button>
         <Button onClick={addThisProductToCart}>Add to Cart</Button>
       </Card.Body>
@@ -47,6 +69,7 @@ ProductCard.propTypes = {
     }),
     seller: PropTypes.shape({
       username: PropTypes.string,
+      id: PropTypes.number,
     }),
   }).isRequired,
 };

@@ -36,10 +36,13 @@ function Home() {
               margin: '0 auto',
             }}
           >
-            <h1>Welcome to Bangazon! </h1>
+            <h1>Welcome to The Darkest Web!</h1>
           </div>
 
-          <div className="card-container d-flex flex-wrap">
+          <div
+            className="card-container d-flex flex-wrap"
+            style={{ margin: '0 auto' }}
+          >
             {twentyNewestProducts.map((product) => (
               <ProductCard key={product.id} productObj={product} onUpdate={getTwentyNewestProducts} />
             ))}

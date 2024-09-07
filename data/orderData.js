@@ -3,7 +3,7 @@ import { clientCredentials } from '../utils/client';
 const endpoint = clientCredentials.databaseURL;
 
 const getClosedOrders = (userId) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/${userId}/orders`, {
+  fetch(`${endpoint}/api/${userId}/orders`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -14,8 +14,8 @@ const getClosedOrders = (userId) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-const getCart = () => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/cart`, {
+const getCart = (userId) => new Promise((resolve, reject) => {
+  fetch(`${endpoint}/api/cart/${userId}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -27,7 +27,7 @@ const getCart = () => new Promise((resolve, reject) => {
 });
 
 const getSingleOrder = (orderId) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/orders/${orderId}`, {
+  fetch(`${endpoint}/api/orders/${orderId}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -37,7 +37,19 @@ const getSingleOrder = (orderId) => new Promise((resolve, reject) => {
     .then((data) => resolve(data))
     .catch(reject);
 });
+const checkoutOrder = (cartId, payload) => new Promise((resolve, reject) => {
+  fetch(`${endpoint}/api/orders/${cartId}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(payload),
+  })
+    .then((response) => response.json())
+    .then(resolve)
+    .catch(reject);
+});
 
 export {
-  getClosedOrders, getCart, getSingleOrder,
+  getClosedOrders, getCart, getSingleOrder, checkoutOrder,
 };

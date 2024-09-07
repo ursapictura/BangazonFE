@@ -13,9 +13,11 @@ export default function NavBar() {
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
       <Container>
-        <Link passHref href="/">
-          <Navbar.Brand>Bangazon</Navbar.Brand>
-        </Link>
+        <div className="flex-1">
+          <Link passHref href="/">
+            <img src="/greendale.png" alt="logo" style={{ width: '80px', marginLeft: '15px', marginRight: '20px' }} />
+          </Link>
+        </div>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
@@ -23,8 +25,8 @@ export default function NavBar() {
             <Link passHref href="/">
               <Nav.Link>Home</Nav.Link>
             </Link>
-            <Link passHref href="">
-              <Nav.Link>Profile</Nav.Link>
+            <Link passHref href="/orders/cart">
+              <Nav.Link>View Cart</Nav.Link>
             </Link>
             <Button variant="danger" onClick={signOut}>
               Sign Out
