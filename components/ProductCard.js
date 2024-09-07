@@ -15,7 +15,6 @@ export default function ProductCard({ productObj }) {
       try {
         const cartData = await getCart(user[0].id);
         setCart(cartData);
-        console.warn(cart);
       } catch (error) {
         console.error('Error fetching cart details:', error);
       }
@@ -29,7 +28,6 @@ export default function ProductCard({ productObj }) {
         orderId: cart[0].id,
       };
       window.alert('Product added to cart!');
-      console.warn(payload);
       addToCart(payload);
     } else {
       window.alert('Unable to add product to cart. Please try again later.');
@@ -46,7 +44,7 @@ export default function ProductCard({ productObj }) {
       <Card.Body>
         <Card.Title className="card-title">{productObj.name}</Card.Title>
         <Card.Text className="card-text">{productObj.description}</Card.Text>
-        <Card.Text className="card-text">{productObj.price}</Card.Text>
+        <Card.Text className="card-text">Price: ${productObj.price}</Card.Text>
         <Card.Text className="card-text">Category: {productObj.category.name}</Card.Text>
         <Card.Text className="card-text"><a href={`/seller/${productObj.seller.id}`}>Seller: {productObj.seller.username}</a></Card.Text>
         <Button><Link href={`/products/${productObj.id}`}>View Details</Link></Button>

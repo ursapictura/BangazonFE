@@ -13,7 +13,6 @@ export default function ViewProductDetails() {
 
   useEffect(() => {
     getSingleProduct(id).then(setProductDetails);
-    console.warn(productDetails);
   }, [id]);
 
   const addThisProductToCart = () => {
@@ -22,7 +21,6 @@ export default function ViewProductDetails() {
       productId: productDetails.id,
       userId: user.id,
     };
-    console.warn(payload);
     addToCart(payload);
   };
 
@@ -31,7 +29,7 @@ export default function ViewProductDetails() {
       <div className="d-flex flex-column">
         <img src={productDetails?.image} alt={productDetails?.name} style={{ width: '300px' }} />
       </div>
-      <div className="text-white ms-5">
+      <div className="ms-5">
         <h5>
           {productDetails?.name}
         </h5>
@@ -39,7 +37,7 @@ export default function ViewProductDetails() {
         <p>{productDetails?.description || ''}</p>
         <hr />
         <p>
-          {productDetails?.price}
+          Price: ${productDetails?.price}
         </p>
         <Button onClick={addThisProductToCart}>Add to Cart</Button>
       </div>

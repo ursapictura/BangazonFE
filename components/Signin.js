@@ -17,8 +17,8 @@ function Signin() {
         paddingBlock: '0 5rem',
       }}
     >
-      <h1>Hi there!</h1>
-      <p>Click the button below to login!</p>
+      <h1>Woah there!</h1>
+      <h4>Want to see the Darkest Web? Login first!</h4>
       <Button type="button" size="lg" className="copy-btn" onClick={signIn}>
         Sign In
       </Button>
