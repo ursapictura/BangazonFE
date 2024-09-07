@@ -21,25 +21,23 @@ export default function ViewProductDetails() {
       productId: productDetails.id,
       userId: user.id,
     };
-    console.warn(payload);
     addToCart(payload);
   };
 
   return (
-    <div className="mt-5 d-flex flex-wrap">
-      {console.warn(productDetails)}
+    <div className="mt-5 d-flex flex-wrap details">
       <div className="d-flex flex-column">
         <img src={productDetails?.image} alt={productDetails?.name} style={{ width: '300px' }} />
       </div>
-      <div className="text-white ms-5 details">
+      <div className="ms-5">
         <h5>
           {productDetails?.name}
         </h5>
-        Seller: <a href={`products/${productDetails?.seller?.username}`}>{productDetails?.seller?.username}</a>
+        Seller: <a href={`/seller/${productDetails?.seller?.id}`}>{productDetails?.seller?.username}</a>
         <p>{productDetails?.description || ''}</p>
         <hr />
         <p>
-          {productDetails?.price}
+          Price: ${productDetails?.price}
         </p>
         <Button onClick={addThisProductToCart}>Add to Cart</Button>
       </div>

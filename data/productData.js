@@ -46,7 +46,7 @@ const getSingleProduct = (id) => new Promise((resolve, reject) => {
 
 // Create Seller Storefront
 const getSellerProducts = (sellerId) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/products/users/${sellerId}`, {
+  fetch(`${endpoint}/api/products/users/${sellerId}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -58,7 +58,7 @@ const getSellerProducts = (sellerId) => new Promise((resolve, reject) => {
 });
 
 const addToCart = (payload) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/orders/addProduct`, {
+  fetch(`${endpoint}/api/orders/addProduct`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -71,7 +71,7 @@ const addToCart = (payload) => new Promise((resolve, reject) => {
 });
 
 const removeFromCart = (productId, orderId) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/${orderId}/${productId}`, {
+  fetch(`${endpoint}/api/${orderId}/${productId}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',

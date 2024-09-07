@@ -27,6 +27,18 @@ const registerUser = (userInfo) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
+const userDetails = (userId) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/api/users/${userId}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    },
+  })
+    .then((response) => resolve(response.json()))
+    .catch(reject);
+});
+
 const updateUser = (payload, id) => new Promise((resolve, reject) => {
   fetch(`${clientCredentials.databaseURL}/api/users/${id}`, {
     method: 'PUT',
@@ -69,4 +81,5 @@ export {
   registerUser,
   updateUser,
   deleteUser,
+  userDetails,
 };
